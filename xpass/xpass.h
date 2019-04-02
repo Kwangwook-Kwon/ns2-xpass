@@ -97,7 +97,7 @@ public:
   XPassAgent(): Agent(PT_XPASS_DATA), credit_send_state_(XPASS_SEND_CLOSED),
                 credit_recv_state_(XPASS_RECV_CLOSED), last_credit_rate_update_(-0.0),
                 credit_total_(0), credit_dropped_(0), can_increase_w_(false),
-                send_credit_timer_(this), credit_stop_timer_(this), fst(0),
+                send_credit_timer_(this), credit_stop_timer_(this), fst_(0),
                 sender_retransmit_timer_(this), receiver_retransmit_timer_(this),
                 fct_timer_(this), curseq_(1), t_seqno_(1), recv_next_(1),
                 c_seqno_(1), c_recv_next_(1), rtt_(-0.0),is_sender(false),
