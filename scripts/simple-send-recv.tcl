@@ -46,5 +46,7 @@ $ns connect $agent0 $agent1
 
 puts "Simulation started."
 $ns at 0.0 "$agent0 advance-bytes 1000000000"
+$ns at 0.9 "$agent1 close"
+
 $ns at 1.0 "finish"
 $ns run

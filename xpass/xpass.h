@@ -97,11 +97,11 @@ public:
   XPassAgent(): Agent(PT_XPASS_DATA), credit_send_state_(XPASS_SEND_CLOSED),
                 credit_recv_state_(XPASS_RECV_CLOSED), last_credit_rate_update_(-0.0),
                 credit_total_(0), credit_dropped_(0), can_increase_w_(false),
-                send_credit_timer_(this), credit_stop_timer_(this), 
+                send_credit_timer_(this), credit_stop_timer_(this), fst_(0),
                 sender_retransmit_timer_(this), receiver_retransmit_timer_(this),
                 fct_timer_(this), curseq_(1), t_seqno_(1), recv_next_(1),
-                c_seqno_(1), c_recv_next_(1), rtt_(-0.0),
-                credit_recved_(0), wait_retransmission_(false),
+                c_seqno_(1), c_recv_next_(1), rtt_(-0.0),is_sender(false),
+                credit_recved_(0), wait_retransmission_(false),data_received_(0),
                 credit_wasted_(0), credit_recved_rtt_(0), last_credit_recv_update_(0) { }
   virtual int command(int argc, const char*const* argv);
   virtual void recv(Packet*, Handler*);
@@ -180,6 +180,8 @@ protected:
   // next credit sequence number expected
   seq_t c_recv_next_;
 
+  seq_t data_received_;
+
   // weighted-average round trip time
   double rtt_;
   // flow start time
@@ -199,6 +201,8 @@ protected:
 
   // whether receiver is waiting for data retransmission
   bool wait_retransmission_;
+
+  bool is_sender;
 
   // temp variables
   int credit_wasted_;

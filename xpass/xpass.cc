@@ -125,9 +125,14 @@ int XPassAgent::command(int argc, const char*const* argv) {
     } else if (strcmp(argv[1], "stop") == 0) {
       //on_transmission_ = false;
       return TCL_OK;
+    } else if (strcmp(argv[1], "close") == 0) {
+      if(is_sender == false)
+        this->handle_fct();
+      return TCL_OK;
     }
   } else if (argc == 3) {
     if (strcmp(argv[1], "advance-bytes") == 0) {
+      is_sender = true;
       if (credit_recv_state_ == XPASS_RECV_CLOSED) {
         advance_bytes(atol(argv[2]));
         return TCL_OK;
@@ -179,7 +184,8 @@ void XPassAgent::recv_credit_request(Packet *pkt) {
         lalpha = alpha_ * xph->sendbuffer_ / 40.0;
       } 
       cur_credit_rate_ = (int)(lalpha * max_credit_rate_);
-      fst_ = xph->credit_sent_time();
+      if(fst_ ==0 )
+        fst_ = xph->credit_sent_time();
       // need to start to send credits.
       send_credit();
         

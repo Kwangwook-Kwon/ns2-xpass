@@ -61,7 +61,6 @@ void XPassDropTail::enque(Packet* p) {
     if (credit_q_->byteLength() > credit_q_limit_) {
       credit_q_->remove(p);
       drop(p);
-      printf("Credit packet will be dropped.\n");
     }
   }else {
     // p is data packet.
