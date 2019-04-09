@@ -492,6 +492,10 @@ void XPassAgent::send_credit() {
   send(construct_credit(), 0);
 
   // calculate delay for next credit transmission.
+  if(cur_credit_rate_ == 0){
+	printf("0000000 recv_next: %d  fid: %d, rtt: %f\n",recv_next_,fid_, rtt_);
+	cur_credit_rate_ = max_credit_rate_;
+}
   delay = avg_credit_size / cur_credit_rate_;
   // add jitter
   if (max_jitter_ > min_jitter_) {

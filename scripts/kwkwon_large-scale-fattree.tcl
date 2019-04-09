@@ -4,7 +4,7 @@ set ns [new Simulator]
 # Flow configurations
 #
 set numFlow 10000
-set workload "cachefollower" ;# cachefollower, mining, search, webserver
+set workload "mining" ;# cachefollower, mining, search, webserver
 set linkLoad 0.6 ;# ranges from 0.0 to 1.0
 
 #
@@ -23,8 +23,8 @@ set dataBufferFromAggrToTor [expr 250*1538] ;# bytes / port
 set dataBufferFromTorToHost [expr 250*1538] ;# bytes / port
 
 set numCore 4 ;# number of core switches
-set numAggr 16 ;# number of aggregator switches
-set numTor 16 ;# number of ToR switches
+set numAggr 8 ;# number of aggregator switches
+set numTor 8 ;# number of ToR switches
 set numNode [expr $numTor*5 ] ;# number of nodes
 
 
@@ -91,7 +91,7 @@ Agent/XPass set max_jitter_ $maxJitter
 
 Queue/XPassDropTail set credit_limit_ $creditBuffer
 Queue/XPassDropTail set max_tokens_ $maxCreditBurst
-Queue/XPassDropTail set token_refresh_rate_ $creditBW
+Queue/XPassDropTail set token_refresh_rate_ [expr $creditBW*0.75]
 
 DelayLink set avoidReordering_ true
 $ns rtproto DV
